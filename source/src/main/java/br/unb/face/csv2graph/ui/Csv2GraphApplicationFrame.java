@@ -26,16 +26,16 @@ public class Csv2GraphApplicationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JMenuBar jMenuBar;
-	private JMenu jMenuArquivo;
-	private JMenu jMenuAjuda;
-	private JMenuItem jMenuItemSair;
-	private JMenuItem jMenuItemSobre;
+	private JMenu jMenuFile;
+	private JMenu jMenuHelp;
+	private JMenuItem jMenuItemExit;
+	private JMenuItem jMenuItemAbout;
 
-	private JTextField jTextFieldCaminho;
-	private JFileChooser jFCArquivoCsv;
-	private JButton jButtonArquivoCsv;
-	private JButton jButtonProcessar;
-	private JButton jButtonLimpar;
+	private JTextField jTextFieldCsvPath;
+	private JFileChooser jFileChooserCsv;
+	private JButton jButtonCsvFile;
+	private JButton jButtonRun;
+	private JButton jButtonClear;
 
 	private JTabbedPane jTabbedPane;
 	private JScrollPane scrollPaneConsole;
@@ -56,19 +56,19 @@ public class Csv2GraphApplicationFrame extends JFrame {
 		jMenuBar = new JMenuBar();
 		setJMenuBar(jMenuBar);
 
-		jMenuArquivo = new JMenu("Arquivo");
-		jMenuBar.add(jMenuArquivo);
+		jMenuFile = new JMenu("File");
+		jMenuBar.add(jMenuFile);
 
-		jMenuItemSair = new JMenuItem("Sair");
-		jMenuArquivo.add(jMenuItemSair);
+		jMenuItemExit = new JMenuItem("Exit");
+		jMenuFile.add(jMenuItemExit);
 
 		/* ----------------------------------------------------------------- */
 
-		jMenuAjuda = new JMenu("Ajuda");
-		jMenuBar.add(jMenuAjuda);
+		jMenuHelp = new JMenu("Help");
+		jMenuBar.add(jMenuHelp);
 
-		jMenuItemSobre = new JMenuItem("Sobre");
-		jMenuAjuda.add(jMenuItemSobre);
+		jMenuItemAbout = new JMenuItem("About");
+		jMenuHelp.add(jMenuItemAbout);
 	}
 
 	private void initLayout() {
@@ -85,7 +85,7 @@ public class Csv2GraphApplicationFrame extends JFrame {
 		/* ----------------------------------------------------------------- */
 
 		JLabel jLabelTitulo = new JLabel();
-		jLabelTitulo.setText("Csv2Graph - Conversao de Arquivo CSV em Grafo");
+		jLabelTitulo.setText("csv2graph - CSV to graph parsing tool");
 		jLabelTitulo.setBounds(x, y, 700, 20);
 		getContentPane().add(jLabelTitulo);
 		x = initX;
@@ -93,41 +93,41 @@ public class Csv2GraphApplicationFrame extends JFrame {
 
 		/* ----------------------------------------------------------------- */
 
-		JLabel jLabelArquivoCsv = new JLabel();
-		jLabelArquivoCsv.setText("Arquivo CSV:");
-		jLabelArquivoCsv.setBounds(x, y, 80, 20);
-		getContentPane().add(jLabelArquivoCsv);
-		x += jLabelArquivoCsv.getWidth() + gapX;
+		JLabel jLabelCsvFile = new JLabel();
+		jLabelCsvFile.setText("CSV File:");
+		jLabelCsvFile.setBounds(x, y, 80, 20);
+		getContentPane().add(jLabelCsvFile);
+		x += jLabelCsvFile.getWidth() + gapX;
 
-		jTextFieldCaminho = new JTextField();
-		jTextFieldCaminho.setText("");
-		jTextFieldCaminho.setBounds(x, y, 480, 20);
-		getContentPane().add(jTextFieldCaminho);
-		x += jTextFieldCaminho.getWidth() + gapX;
+		jTextFieldCsvPath = new JTextField();
+		jTextFieldCsvPath.setText("");
+		jTextFieldCsvPath.setBounds(x, y, 480, 20);
+		getContentPane().add(jTextFieldCsvPath);
+		x += jTextFieldCsvPath.getWidth() + gapX;
 
-		jFCArquivoCsv = new JFileChooser();
-		jButtonArquivoCsv = new JButton("Abrir");
-		jButtonArquivoCsv.setBounds(x, y, 100, 20);
-		getContentPane().add(jButtonArquivoCsv);
+		jFileChooserCsv = new JFileChooser();
+		jButtonCsvFile = new JButton("Abrir");
+		jButtonCsvFile.setBounds(x, y, 100, 20);
+		getContentPane().add(jButtonCsvFile);
 		x = initX;
-		y += jTextFieldCaminho.getHeight() + gapY;
+		y += jTextFieldCsvPath.getHeight() + gapY;
 
 		/* ----------------------------------------------------------------- */
 
-		jButtonProcessar = new JButton("Processar");
-		jButtonProcessar.setBounds(x, y, 100, 20);
-		getContentPane().add(jButtonProcessar);
-		x += jButtonProcessar.getWidth() + gapX;
+		jButtonRun = new JButton("Run");
+		jButtonRun.setBounds(x, y, 100, 20);
+		getContentPane().add(jButtonRun);
+		x += jButtonRun.getWidth() + gapX;
 
-		jButtonLimpar = new JButton("Limpar");
-		jButtonLimpar.setBounds(x, y, 100, 20);
-		getContentPane().add(jButtonLimpar);
+		jButtonClear = new JButton("Clear");
+		jButtonClear.setBounds(x, y, 100, 20);
+		getContentPane().add(jButtonClear);
 		x = initX;
-		y += jButtonLimpar.getHeight() + gapY;
+		y += jButtonClear.getHeight() + gapY;
 
 		/* ----------------------------------------------------------------- */
 
-		textAreaConsole = new JTextArea("Informe o arquivo CSV e clique em \"Processar\".\n");
+		textAreaConsole = new JTextArea("Please choose the CSV file and click on \"Run\".\n");
 		textAreaConsole.setFont(new Font("monospaced", Font.PLAIN, 12));
 		textAreaConsole.setLineWrap(true);
 		textAreaConsole.setWrapStyleWord(true);
@@ -156,55 +156,55 @@ public class Csv2GraphApplicationFrame extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		jMenuItemSair.addActionListener(new ActionListener() {
+		jMenuItemExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(NORMAL);
 			}
 		});
 
-		jMenuItemSobre.addActionListener(new ActionListener() {
+		jMenuItemAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(getContentPane(),
-						"Csv2Graph\n" + "Professor Mauricio Bugarim\n" + "FACE/UnB - Setembro de 2017");
+						"csv2graph\n" + "http://github.com/gjportella/csv2graph/wiki\n" + "September, 2017.");
 			}
 		});
 
-		jButtonArquivoCsv.addActionListener(new ActionListener() {
+		jButtonCsvFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				int returnVal = jFCArquivoCsv.showOpenDialog(Csv2GraphApplicationFrame.this);
+				int returnVal = jFileChooserCsv.showOpenDialog(Csv2GraphApplicationFrame.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = jFCArquivoCsv.getSelectedFile();
-					jTextFieldCaminho.setText(file.getAbsolutePath());
+					File file = jFileChooserCsv.getSelectedFile();
+					jTextFieldCsvPath.setText(file.getAbsolutePath());
 				}
 			}
 		});
 
-		jButtonLimpar.addActionListener(new ActionListener() {
+		jButtonClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				jTextFieldCaminho.setText("");
-				textAreaConsole.setText("Informe o arquivo CSV e clique em \"Processar\".\n");
+				jTextFieldCsvPath.setText("");
+				textAreaConsole.setText("Please choose the CSV file and click on \"Run\".\n");
 				textAreaGraphviz.setText("");
 			}
 		});
 
-		jButtonProcessar.addActionListener(new ActionListener() {
+		jButtonRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				jButtonProcessarActionPerformed(evt);
+				jButtonRunActionPerformed(evt);
 			}
 		});
 	}
 
-	private void jButtonProcessarActionPerformed(ActionEvent evt) {
+	private void jButtonRunActionPerformed(ActionEvent evt) {
 
-		Csv2Graph csv2Graph = new Csv2Graph(jTextFieldCaminho.getText());
+		Csv2Graph csv2Graph = new Csv2Graph(jTextFieldCsvPath.getText());
 		try {
 			csv2Graph.doConversion();
 			textAreaConsole.setText(csv2Graph.getLogBuilder().toString());
 			textAreaGraphviz.setText(csv2Graph.getGraphvizBuilder().toString());
 
 		} catch (Exception ex) {
-			textAreaConsole.setText("Erro ao processar arquivo CSV (linha= " + Integer.toString(csv2Graph.getRow())
-					+ ", coluna= " + Integer.toString(csv2Graph.getColumn()) + ").\n" + ex.toString());
+			textAreaConsole.setText("Error processing the CSV file (line= " + Integer.toString(csv2Graph.getRow())
+					+ ", column= " + Integer.toString(csv2Graph.getColumn()) + ").\n" + ex.toString());
 		}
 	}
 }

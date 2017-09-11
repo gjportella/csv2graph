@@ -75,7 +75,7 @@ public class Csv2Graph {
 			}
 
 		} catch (IOException ioEx) {
-			throw new Exception("Erro ao processar arquivo CSV.", ioEx);
+			throw new Exception("Runtime error processing CSV file.", ioEx);
 
 		} finally {
 			if (csvReader != null) {
